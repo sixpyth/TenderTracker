@@ -2,7 +2,6 @@ import os
 from pydantic import PostgresDsn, EmailStr, AnyHttpUrl, field_validator, ValidationInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Any
-import secrets
 from app.enums import ModeEnum
 
 
@@ -40,11 +39,11 @@ class Settings(BaseSettings):
             path=f"{values.get('DATABASE_NAME') or ''}",
         ))
 
-    FIRST_SUPERUSER_EMAIL: EmailStr = "admin@admin.com"
-    FIRST_SUPERUSER_PASSWORD: str = "admin"
+    FIRST_SUPERUSER_EMAIL: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
 
-    SECRET_KEY: str = "09d25e0sas4faa6c52gf6c818166b7a9563b93f7sdsdef6f0f4caa6cf63b88e8d3e7"
-    ENCRYPT_KEY: str = "TshgGacKPYrm35m89UqbRg46JAbUm2yRtxOCQFdqa3w="
+    SECRET_KEY: str
+    ENCRYPT_KEY: str
     BACKEND_CORS_ORIGINS: list[str] | list[AnyHttpUrl] = ["*"]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
