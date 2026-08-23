@@ -4,11 +4,11 @@
 
 Backend microservice for managing tenders and automatically tracking their status change audit trail history built with **FastAPI**, **SQLModel / SQLAlchemy 2.0 (Async)**, **Alembic**, and **Docker**.
 
-> 📖 **Полная документация решения, описание логики и алгоритмов**: См. [SOLUTION.md](SOLUTION.md)
+> **Полная документация решения, описание логики и алгоритмов**: См. [SOLUTION.md](SOLUTION.md)
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Set environment variables
 Copy template `.env.example` to `.env`:
@@ -34,7 +34,7 @@ Open in browser: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run integration tests for tender status lifecycle:
 ```sh
@@ -44,6 +44,6 @@ pytest app/test/api/test_tender.py
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the terms of the **[MIT License](LICENSE)**.
