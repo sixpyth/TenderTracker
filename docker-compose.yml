@@ -37,6 +37,6 @@ services:
     container_name: ${PROJECT_NAME}_redis_server
     image: redis:alpine
     restart: always
-    expose:
-      - 6379
+    ports:
+      - "6379:6379"
     env_file: .env
