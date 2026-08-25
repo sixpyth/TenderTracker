@@ -34,7 +34,7 @@ class TestPostLogin:
                 },
                 200,
                 None,
-            ),  # Add expected JSON response for successful login
+            ),
             (
                 "post",
                 "/login/new_access_token",
@@ -47,16 +47,16 @@ class TestPostLogin:
     async def test(
         self, test_client, method, endpoint, data, expected_status, expected_response
     ):
-        async for client in test_client:
-            if method == "get":
-                response = await client.get(endpoint)
-            elif method == "put":
-                response = await client.put(endpoint, json=data)
-            elif method == "delete":
-                response = await client.delete(endpoint)
-            else:  # Default to POST
-                response = await client.post(endpoint, json=data)
+        client = test_client
+        if method == "get":
+            response = await client.get(endpoint)
+        elif method == "put":
+            response = await client.put(endpoint, json=data)
+        elif method == "delete":
+            response = await client.delete(endpoint)
+        else:
+            response = await client.post(endpoint, json=data)
 
-            assert response.status_code == expected_status
-            if expected_response is not None:
-                assert response.json() == expected_response
+        assert response.status_code == expected_status
+        if expected_response is not None:
+            assert response.json() == expected_response

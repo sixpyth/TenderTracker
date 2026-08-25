@@ -13,8 +13,14 @@ async def test_client() -> AsyncGenerator[AsyncClient, None]:
         yield client
 
 
+def extract_token(login_resp_data) -> str:
+    if isinstance(login_resp_data, str):
+        return login_resp_data
+    return login_resp_data.get("access_token", "")
+
+
 @pytest.mark.asyncio
-class TestPostLogin:
+class TestUserAPI:
     @pytest.mark.parametrize(
         "method, endpoint, data, expected_status, expected_response",
         [
@@ -32,34 +38,23 @@ class TestPostLogin:
     async def test(
         self, test_client, method, endpoint, data, expected_status, expected_response
     ):
-        async for client in test_client:
-            credentials = {
-                "email": settings.FIRST_SUPERUSER_EMAIL,
-                "password": settings.FIRST_SUPERUSER_PASSWORD,
-            }
-            response = await client.post("/login", json=credentials)
-            access_token = response.json()["data"]["access_token"]
-            if method == "get":
-                response = await client.get(
-                    endpoint, headers={"Authorization": f"Bearer {access_token}"}
-                )
-            elif method == "put":
-                response = await client.put(
-                    endpoint,
-                    json=data,
-                    headers={"Authorization": f"Bearer {access_token}"},
-                )
-            elif method == "delete":
-                response = await client.delete(
-                    endpoint, headers={"Authorization": f"Bearer {access_token}"}
-                )
-            else:  # Default to POST
-                response = await client.post(
-                    endpoint,
-                    json=data,
-                    headers={"Authorization": f"Bearer {access_token}"},
-                )
+        client = test_client
+        credentials = {
+            "email": settings.FIRST_SUPERUSER_EMAIL,
+            "password": settings.FIRST_SUPERUSER_PASSWORD,
+        }
+        response = await client.post("/login", json=credentials)
+        token = extract_token(response.json()["data"])
+        headers = {"Authorization": f"Bearer {token}"}
+        if method == "get":
+            response = await client.get(endpoint, headers=headers)
+        elif method == "put":
+            response = await client.put(endpoint, json=data, headers=headers)
+        elif method == "delete":
+            response = await client.delete(endpoint, headers=headers)
+        else:
+            response = await client.post(endpoint, json=data, headers=headers)
 
-            assert response.status_code == expected_status
-            if expected_response is not None:
-                assert response.json() == expected_response
+        assert response.status_code == expected_status
+        if expected_response is not None:
+            assert response.json() == expected_response
