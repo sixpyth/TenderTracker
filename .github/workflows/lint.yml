@@ -26,8 +26,8 @@ jobs:
 
       - name: Check code formatting with Black
         run: |
-          black --check app
+          black --check backend/app
 
       - name: Lint code with Flake8
         run: |
-          flake8 app --max-line-length=120 --exclude=.venv,__pycache__,alembic/versions
+          flake8 backend/app --max-line-length=120 --exclude=.venv,__pycache__,alembic/versions

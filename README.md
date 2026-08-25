@@ -1,10 +1,10 @@
-# Tender Status Tracking Microservice (Task 6)
+﻿# Tender Status Tracking Microservice (Task 6)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Backend microservice for managing tenders and automatically tracking their status change audit trail history built with **FastAPI**, **SQLModel / SQLAlchemy 2.0 (Async)**, **Alembic**, and **Docker**.
 
-> **Полная документация решения, описание логики и алгоритмов**: См. [SOLUTION.md](SOLUTION.md)
+> **РџРѕР»РЅР°СЏ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЏ СЂРµС€РµРЅРёСЏ, РѕРїРёСЃР°РЅРёРµ Р»РѕРіРёРєРё Рё Р°Р»РіРѕСЂРёС‚РјРѕРІ**: РЎРј. [LOGIC.md](LOGIC.md)
 
 ---
 
