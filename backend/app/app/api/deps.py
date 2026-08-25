@@ -20,7 +20,6 @@ from app.schemas.common_schema import IMetaGeneral, TokenType
 import redis.asyncio as aioredis
 from redis.asyncio import Redis
 
-
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/login/access-token"
 )

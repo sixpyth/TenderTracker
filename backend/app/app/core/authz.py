@@ -2,7 +2,6 @@ from app.models.hero_model import Hero
 from app.modules.users.user_model import User
 from oso import Oso  # (1)
 
-
 oso = Oso()  # (2)
 
 # load policies

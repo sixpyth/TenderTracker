@@ -10,7 +10,6 @@ from alembic import op
 import sqlalchemy as sa
 import sqlmodel
 
-
 revision = "initial_migration_001"
 down_revision = None
 branch_labels = None
