@@ -4,7 +4,7 @@
 
 Backend microservice for managing tenders and automatically tracking their status change audit trail history built with **FastAPI**, **SQLModel / SQLAlchemy 2.0 (Async)**, **Alembic**, and **Docker**.
 
-> **РџРѕР»РЅР°СЏ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЏ СЂРµС€РµРЅРёСЏ, РѕРїРёСЃР°РЅРёРµ Р»РѕРіРёРєРё Рё Р°Р»РіРѕСЂРёС‚РјРѕРІ**: РЎРј. [LOGIC.md](LOGIC.md)
+> **Полная документация решения, описание логики и алгоритмов**: См. [LOGIC.md](LOGIC.md)
 
 ---
 
