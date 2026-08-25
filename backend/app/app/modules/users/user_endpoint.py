@@ -3,8 +3,8 @@ from uuid import UUID
 from app import crud
 from app.api import deps
 from app.deps import user_deps
-from app.models import User
-from app.models.role_model import Role
+from app.modules.users.user_model import User
+from app.modules.roles.role_model import Role
 from fastapi import (
     APIRouter,
     Depends,
@@ -18,8 +18,8 @@ from app.schemas.response_schema import (
     IPostResponseBase,
     create_response,
 )
-from app.schemas.role_schema import IRoleEnum
-from app.schemas.user_schema import (
+from app.modules.roles.role_schema import IRoleEnum
+from app.modules.users.user_schema import (
     IUserCreate,
     IUserRead,
     IUserStatus,

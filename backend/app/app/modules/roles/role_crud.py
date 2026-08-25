@@ -1,6 +1,6 @@
-from app.schemas.role_schema import IRoleCreate, IRoleUpdate
-from app.models.role_model import Role
-from app.models.user_model import User
+from app.modules.roles.role_schema import IRoleCreate, IRoleUpdate
+from app.modules.roles.role_model import Role
+from app.modules.users.user_model import User
 from app.crud.base_crud import CRUDBase
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select

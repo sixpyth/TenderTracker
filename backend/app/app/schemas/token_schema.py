@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from .user_schema import IUserRead
+from app.modules.users.user_schema import IUserRead
 
 
 class Token(BaseModel):

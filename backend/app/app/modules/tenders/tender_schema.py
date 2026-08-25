@@ -1,7 +1,7 @@
 from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel, Field
-from app.models.tender_model import TenderBase
+from app.modules.tenders.tender_model import TenderBase
 from app.enums import TenderStatus
 from app.utils.partial import optional
 
@@ -17,7 +17,9 @@ class ITenderUpdate(TenderBase):
 
 class ITenderUpdateStatus(BaseModel):
     new_status: TenderStatus = Field(..., description="Новый статус тендера")
-    reason: str = Field(..., min_length=1, description="Причина/комментарий изменения статуса")
+    reason: str = Field(
+        ..., min_length=1, description="Причина/комментарий изменения статуса"
+    )
 
 
 class ITenderStatusHistoryRead(BaseModel):

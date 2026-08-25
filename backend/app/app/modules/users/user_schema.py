@@ -1,9 +1,9 @@
 from app.utils.partial import optional
-from app.models.user_model import UserBase
+from app.modules.users.user_model import UserBase
 from pydantic import BaseModel
 from uuid import UUID
-from app.enums import IUserStatus
-from .role_schema import IRoleRead
+from app.enums import IUserStatus  # noqa: F401
+from app.modules.roles.role_schema import IRoleRead
 
 
 class IUserCreate(UserBase):

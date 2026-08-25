@@ -3,10 +3,10 @@ from fastapi import APIRouter, Depends, Query
 from fastapi_pagination import Params
 from app import crud
 from app.api import deps
-from app.models.tender_model import Tender
-from app.models.user_model import User
+from app.modules.tenders.tender_model import Tender
+from app.modules.users.user_model import User
 from app.schemas.common_schema import IOrderEnum
-from app.schemas.tender_schema import (
+from app.modules.tenders.tender_schema import (
     ITenderCreate,
     ITenderRead,
     ITenderReadWithHistory,
@@ -90,10 +90,15 @@ async def update_tender_status(
         reason=status_update.reason,
         changed_by_id=current_user.id,
     )
-    return create_response(data=updated_tender, message="Статус тендера успешно обновлен")
+    return create_response(
+        data=updated_tender, message="Статус тендера успешно обновлен"
+    )
 
 
-@router.get("/{tender_id}/history", response_model=IGetResponseBase[list[ITenderStatusHistoryRead]])
+@router.get(
+    "/{tender_id}/history",
+    response_model=IGetResponseBase[list[ITenderStatusHistoryRead]],
+)
 async def get_tender_history(
     tender_id: UUID,
     current_user: User = Depends(deps.get_current_user()),
@@ -105,5 +110,7 @@ async def get_tender_history(
     if not tender_obj:
         raise IdNotFoundException(Tender, tender_id)
 
-    history = await crud.tender_status_history.get_history_by_tender_id(tender_id=tender_id)
+    history = await crud.tender_status_history.get_history_by_tender_id(
+        tender_id=tender_id
+    )
     return create_response(data=history)

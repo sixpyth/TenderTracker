@@ -7,8 +7,8 @@ from fastapi_pagination import Params
 from app import crud
 from app.api import deps
 from app.deps import role_deps
-from app.models.role_model import Role
-from app.models.user_model import User
+from app.modules.roles.role_model import Role
+from app.modules.users.user_model import User
 from app.schemas.response_schema import (
     IGetResponseBase,
     IGetResponsePaginated,
@@ -16,7 +16,7 @@ from app.schemas.response_schema import (
     IPutResponseBase,
     create_response,
 )
-from app.schemas.role_schema import IRoleCreate, IRoleEnum, IRoleRead, IRoleUpdate
+from app.modules.roles.role_schema import IRoleCreate, IRoleEnum, IRoleRead, IRoleUpdate
 
 router = APIRouter()
 

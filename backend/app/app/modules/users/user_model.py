@@ -1,5 +1,5 @@
 from app.models.base_uuid_model import BaseUUIDModel
-from app.schemas.common_schema import IGenderEnum
+from app.enums import IGenderEnum
 from datetime import datetime
 from sqlmodel import Field, SQLModel, Relationship, Column, DateTime, String, AutoString
 from typing import Optional
@@ -12,7 +12,11 @@ class UserBase(SQLModel):
     first_name: str
     last_name: str
     email: EmailStr | None = Field(
-        default=None, sa_type=AutoString, nullable=True, index=True, sa_column_kwargs={"unique": True}
+        default=None,
+        sa_type=AutoString,
+        nullable=True,
+        index=True,
+        sa_column_kwargs={"unique": True},
     )
     is_active: bool = Field(default=True)
     is_superuser: bool = Field(default=False)

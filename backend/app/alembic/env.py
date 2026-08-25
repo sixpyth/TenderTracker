@@ -11,7 +11,9 @@ import pathlib
 
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 
-from app.models import *  # necessarily to import something from file where your models are stored
+from app.modules.users.user_model import User
+from app.modules.roles.role_model import Role
+from app.modules.tenders.tender_model import Tender, TenderStatusHistory
 
 settings = Settings()
 # this is the Alembic Config object, which provides

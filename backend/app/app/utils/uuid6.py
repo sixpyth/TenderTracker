@@ -52,9 +52,7 @@ class UUID(uuid.UUID):
         super().__init__(int=int, is_safe=is_safe)
 
     @classmethod
-    def __get_pydantic_core_schema__(
-        cls, _source_type: Any, _handler: Any
-    ) -> Any:
+    def __get_pydantic_core_schema__(cls, _source_type: Any, _handler: Any) -> Any:
         try:
             from pydantic_core import core_schema
 
@@ -99,7 +97,6 @@ class UUID(uuid.UUID):
         if self.version == 7:
             return (self.int >> 80) * 10**6 + _subsec_decode(self.subsec)
         return super().time
-
 
 
 def _subsec_decode(value: int) -> int:

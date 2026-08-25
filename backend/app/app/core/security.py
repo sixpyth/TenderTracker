@@ -10,6 +10,7 @@ except ImportError:
 
 try:
     from passlib.context import CryptContext
+
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 except ImportError:
     import hashlib

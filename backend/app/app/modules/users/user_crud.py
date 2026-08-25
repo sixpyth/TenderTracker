@@ -1,5 +1,5 @@
-from app.schemas.user_schema import IUserCreate, IUserUpdate
-from app.models.user_model import User
+from app.modules.users.user_schema import IUserCreate, IUserUpdate
+from app.modules.users.user_model import User
 from app.core.security import verify_password, get_password_hash
 from pydantic.networks import EmailStr
 from typing import Any

@@ -2,9 +2,9 @@ from uuid import UUID
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from app.crud.base_crud import CRUDBase
-from app.models.tender_model import Tender, TenderStatusHistory
+from app.modules.tenders.tender_model import Tender, TenderStatusHistory
 from app.enums import TenderStatus
-from app.schemas.tender_schema import ITenderCreate, ITenderUpdate
+from app.modules.tenders.tender_schema import ITenderCreate, ITenderUpdate
 
 
 class CRUDTender(CRUDBase[Tender, ITenderCreate, ITenderUpdate]):
@@ -67,7 +67,9 @@ class CRUDTender(CRUDBase[Tender, ITenderCreate, ITenderUpdate]):
         return tender
 
 
-class CRUDTenderStatusHistory(CRUDBase[TenderStatusHistory, TenderStatusHistory, TenderStatusHistory]):
+class CRUDTenderStatusHistory(
+    CRUDBase[TenderStatusHistory, TenderStatusHistory, TenderStatusHistory]
+):
     async def get_history_by_tender_id(
         self, *, tender_id: UUID | str, db_session: AsyncSession | None = None
     ) -> list[TenderStatusHistory]:

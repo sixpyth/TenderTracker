@@ -4,10 +4,11 @@ from redis.asyncio import Redis
 from app.utils.token import get_valid_tokens
 from app.utils.token import delete_tokens
 from app.core.security import get_password_hash, verify_password
-from app.models.user_model import User
+from app.modules.users.user_model import User
 from app.api.deps import get_redis_client
 from app.utils.token import add_token_to_redis
 from fastapi.security import OAuth2PasswordRequestForm
+
 try:
     from jose import jwt
 except ImportError:
@@ -18,7 +19,7 @@ from app import crud
 from app.api import deps
 from app.core import security
 from app.core.config import settings
-from app.schemas.common_schema import TokenType, IMetaGeneral
+from app.schemas.common_schema import TokenType
 from app.schemas.token_schema import TokenRead, Token, RefreshToken
 from app.schemas.response_schema import IPostResponseBase, create_response
 
@@ -29,9 +30,8 @@ router = APIRouter()
 async def login(
     email: EmailStr = Body(...),
     password: str = Body(...),
-    meta_data: IMetaGeneral = Depends(deps.get_general_meta),
     redis_client: Redis = Depends(get_redis_client),
-) -> IPostResponseBase[Token]:
+) -> IPostResponseBase[str]:
     """
     Login for all users
     """
@@ -77,7 +77,7 @@ async def login(
             settings.REFRESH_TOKEN_EXPIRE_MINUTES,
         )
 
-    return create_response(meta=meta_data, data=data, message="Login correctly")
+    return create_response(data=data.access_token, message="Login correctly")
 
 
 @router.post("/change_password")

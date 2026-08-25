@@ -1,10 +1,11 @@
 """initial migration for role, user, tender, tenderstatushistory
 
 Revision ID: initial_migration_001
-Revises: 
+Revises:
 Create Date: 2026-08-23 00:00:00.000000
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 import sqlmodel
@@ -58,7 +59,9 @@ def upgrade():
     )
     op.create_index(op.f("ix_User_email"), "User", ["email"], unique=True)
     op.create_index(op.f("ix_User_id"), "User", ["id"], unique=False)
-    op.create_index(op.f("ix_User_hashed_password"), "User", ["hashed_password"], unique=False)
+    op.create_index(
+        op.f("ix_User_hashed_password"), "User", ["hashed_password"], unique=False
+    )
 
     # Table Tender
     op.create_table(
@@ -102,12 +105,21 @@ def upgrade():
         ),
         sa.PrimaryKeyConstraint("id"),
     )
-    op.create_index(op.f("ix_TenderStatusHistory_id"), "TenderStatusHistory", ["id"], unique=False)
-    op.create_index(op.f("ix_TenderStatusHistory_tender_id"), "TenderStatusHistory", ["tender_id"], unique=False)
+    op.create_index(
+        op.f("ix_TenderStatusHistory_id"), "TenderStatusHistory", ["id"], unique=False
+    )
+    op.create_index(
+        op.f("ix_TenderStatusHistory_tender_id"),
+        "TenderStatusHistory",
+        ["tender_id"],
+        unique=False,
+    )
 
 
 def downgrade():
-    op.drop_index(op.f("ix_TenderStatusHistory_tender_id"), table_name="TenderStatusHistory")
+    op.drop_index(
+        op.f("ix_TenderStatusHistory_tender_id"), table_name="TenderStatusHistory"
+    )
     op.drop_index(op.f("ix_TenderStatusHistory_id"), table_name="TenderStatusHistory")
     op.drop_table("TenderStatusHistory")
     op.drop_index(op.f("ix_Tender_status"), table_name="Tender")

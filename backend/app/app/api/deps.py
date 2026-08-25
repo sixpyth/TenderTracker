@@ -4,11 +4,12 @@ from fastapi import Depends, HTTPException, status
 from app.utils.token import get_valid_tokens
 from app.utils.minio_client import MinioClient
 from fastapi.security import OAuth2PasswordBearer
+
 try:
     from jose import jwt
 except ImportError:
     import jwt
-from app.models.user_model import User
+from app.modules.users.user_model import User
 from pydantic import ValidationError
 from app import crud
 from app.core import security

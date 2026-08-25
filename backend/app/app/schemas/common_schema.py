@@ -1,8 +1,8 @@
 from uuid import UUID
 from app.utils.uuid6 import uuid7
-from pydantic import BaseModel, validator
-from app.schemas.role_schema import IRoleRead
-from app.enums import IGenderEnum, IOrderEnum, TokenType
+from pydantic import BaseModel, field_validator
+from app.modules.roles.role_schema import IRoleRead
+from app.enums import IGenderEnum, IOrderEnum, TokenType  # noqa: F401
 
 
 class IMetaGeneral(BaseModel):
@@ -25,19 +25,22 @@ class IChatResponse(BaseModel):
     message: str
     type: str
 
-    @validator("id", "message_id", pre=True, allow_reuse=True)
+    @field_validator("id", "message_id", mode="before")
+    @classmethod
     def check_ids(cls, v):
         if v == "" or v is None:
             return str(uuid7())
         return v
 
-    @validator("sender")
+    @field_validator("sender")
+    @classmethod
     def sender_must_be_bot_or_you(cls, v):
         if v not in ["bot", "you"]:
             raise ValueError("sender must be bot or you")
         return v
 
-    @validator("type")
+    @field_validator("type")
+    @classmethod
     def validate_message_type(cls, v):
         if v not in ["start", "stream", "end", "error", "info"]:
             raise ValueError("type must be start, stream or end")

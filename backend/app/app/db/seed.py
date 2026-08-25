@@ -2,8 +2,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app import crud
 from app.core.config import settings
 from app.enums import IRoleEnum
-from app.schemas.role_schema import IRoleCreate
-from app.schemas.user_schema import IUserCreate
+from app.modules.roles.role_schema import IRoleCreate
+from app.modules.users.user_schema import IUserCreate
 
 roles: list[IRoleCreate] = [
     IRoleCreate(name=IRoleEnum.admin.value, description="Администратор системы"),
@@ -15,7 +15,7 @@ users: list[dict[str, str | IUserCreate]] = [
     {
         "data": IUserCreate(
             first_name="Admin",
-            last_name="Test",
+            last_name="FastAPI",
             password=settings.FIRST_SUPERUSER_PASSWORD,
             email=settings.FIRST_SUPERUSER_EMAIL,
             is_superuser=True,
@@ -25,7 +25,7 @@ users: list[dict[str, str | IUserCreate]] = [
     {
         "data": IUserCreate(
             first_name="Manager",
-            last_name="Test",
+            last_name="FastAPI",
             password=settings.FIRST_SUPERUSER_PASSWORD,
             email="manager@example.com",
             is_superuser=False,
@@ -35,7 +35,7 @@ users: list[dict[str, str | IUserCreate]] = [
     {
         "data": IUserCreate(
             first_name="User",
-            last_name="Test",
+            last_name="FastAPI",
             password=settings.FIRST_SUPERUSER_PASSWORD,
             email="user@example.com",
             is_superuser=False,

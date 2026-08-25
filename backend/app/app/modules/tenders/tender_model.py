@@ -1,5 +1,5 @@
 from uuid import UUID
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, SQLModel, AutoString
 from app.models.base_uuid_model import BaseUUIDModel
 from app.enums import TenderStatus
 
@@ -7,7 +7,9 @@ from app.enums import TenderStatus
 class TenderBase(SQLModel):
     title: str = Field(index=True)
     description: str | None = Field(default=None)
-    status: TenderStatus = Field(default=TenderStatus.DRAFT, index=True)
+    status: TenderStatus = Field(
+        default=TenderStatus.DRAFT, index=True, sa_type=AutoString
+    )
 
 
 class Tender(BaseUUIDModel, TenderBase, table=True):
@@ -26,8 +28,8 @@ class Tender(BaseUUIDModel, TenderBase, table=True):
 
 class TenderStatusHistoryBase(SQLModel):
     tender_id: UUID = Field(foreign_key="Tender.id", index=True)
-    old_status: TenderStatus | None = Field(default=None)
-    new_status: TenderStatus = Field(...)
+    old_status: TenderStatus | None = Field(default=None, sa_type=AutoString)
+    new_status: TenderStatus = Field(..., sa_type=AutoString)
     reason: str = Field(...)
 
 

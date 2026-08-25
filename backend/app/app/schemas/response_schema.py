@@ -2,9 +2,8 @@ from math import ceil
 from typing import Any, Generic, TypeVar
 from collections.abc import Sequence
 from fastapi_pagination import Params, Page
-from fastapi_pagination.bases import AbstractPage, AbstractParams
-from pydantic import Field
-from pydantic.generics import GenericModel
+from fastapi_pagination.bases import AbstractParams
+from pydantic import BaseModel, Field
 
 DataType = TypeVar("DataType")
 T = TypeVar("T")
@@ -17,15 +16,15 @@ class PageBase(Page[T], Generic[T]):
     next_page: int | None = Field(None, description="Page number of the next page")
 
 
-class IResponseBase(GenericModel, Generic[T]):
+class IResponseBase(BaseModel, Generic[T]):
     message: str = ""
-    meta: dict = {}
+    meta: dict | Any = {}
     data: T | None
 
 
-class IGetResponsePaginated(AbstractPage[T], Generic[T]):
+class IGetResponsePaginated(BaseModel, Generic[T]):
     message: str | None = ""
-    meta: dict = {}
+    meta: dict | Any = {}
     data: PageBase[T]
 
     __params_type__ = Params  # Set params related to Page
@@ -83,6 +82,11 @@ def create_response(
     | IDeleteResponseBase[DataType]
     | IPostResponseBase[DataType]
 ):
+    if hasattr(meta, "model_dump"):
+        meta = meta.model_dump()
+    elif hasattr(meta, "dict"):
+        meta = meta.dict()
+
     if isinstance(data, IGetResponsePaginated):
         data.message = "Data paginated correctly" if message is None else message
         data.meta = meta

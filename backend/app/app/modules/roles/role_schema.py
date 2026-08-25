@@ -1,6 +1,6 @@
-from app.models.role_model import RoleBase
+from app.modules.roles.role_model import RoleBase
 from app.utils.partial import optional
-from app.enums import IRoleEnum
+from app.enums import IRoleEnum  # noqa: F401
 from uuid import UUID
 
 
