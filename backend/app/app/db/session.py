@@ -14,9 +14,7 @@ engine = create_async_engine(
     settings.ASYNC_DATABASE_URI,
     echo=False,
     future=True,
-    poolclass=NullPool
-    if settings.MODE == ModeEnum.testing
-    else AsyncAdaptedQueuePool,
+    poolclass=NullPool if settings.MODE == ModeEnum.testing else AsyncAdaptedQueuePool,
 )
 
 SessionLocal = sessionmaker(

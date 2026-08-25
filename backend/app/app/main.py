@@ -105,9 +105,9 @@ app.add_middleware(
     db_url=settings.ASYNC_DATABASE_URI,
     engine_args={
         "echo": False,
-        "poolclass": NullPool
-        if settings.MODE == ModeEnum.testing
-        else AsyncAdaptedQueuePool,
+        "poolclass": (
+            NullPool if settings.MODE == ModeEnum.testing else AsyncAdaptedQueuePool
+        ),
     },
 )
 app.add_middleware(GlobalsMiddleware)
