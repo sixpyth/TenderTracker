@@ -6,6 +6,9 @@ Backend microservice for managing tenders and automatically tracking their statu
 
 > **Полная документация решения, описание логики и алгоритмов**: См. [LOGIC.md](LOGIC.md)
 
+
+---
+
 ---
 
 ## Quick Start
@@ -41,6 +44,27 @@ Run integration tests for tender status lifecycle:
 pytest app/test/api/test_tender.py
 ```
 *(or inside Docker: `make pytest`)*
+
+---
+
+---
+
+---
+
+## Code Quality & Linting
+
+This project uses **Black** for code formatting and **Flake8** for linting. 
+A Git pre-push hook is configured to automatically run these checks before every push. 
+Code checks are also executed automatically on GitHub Actions.
+
+Run linters manually:
+`sh
+# Format code with Black
+poetry run black .
+
+# Check code with Flake8
+poetry run flake8 . --max-line-length=120 --exclude=.venv,__pycache__,alembic/versions
+`
 
 ---
 
